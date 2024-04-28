@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <bits/sigaction.h>
 
 #define SIZE(x) (sizeof x / sizeof x[0])
 

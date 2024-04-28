@@ -1,16 +1,14 @@
+#define _GNU_SOURCE
 
-#include <unistd.h>
-#include <signal.h>
 #include <stdio.h>
 #include <setjmp.h>
 #include <stdlib.h>
-
 #include <assert.h>
 #include <inttypes.h>
 #include <stdbool.h>
 #include <string.h>
-#include <sys/types.h>
-
+#include <stddef.h>
+#include <signal.h>
 #define SIZE(x) (sizeof x / sizeof x[0])
 
 volatile sig_atomic_t sigfpe_occurred = 0;
@@ -37,8 +35,7 @@ static const test_data_t test_data[] = {
     {2, (int64_t[2]){0x00DEC1A551F1ED00,0x00DEC1A551F1ED00}, 0, 1}, // SIGFPE
 };
 
-void sigfpe_handler(int signum) {
-    printf("SIGFPE raised.");
+void sigfpe_handler() {
     sigfpe_occurred = 1;
     longjmp(jmpbuf, 1);
 }
