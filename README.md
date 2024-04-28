@@ -4,7 +4,7 @@
 
 W tym katalogu znajdują się narzędzia do automatycznego testowania rozwiązań do zadania MDIV.
 
-* `tests\` zawiera testy w formacie test[0-9]+.cpp
+* `tests\` zawiera testy w formacie test.cpp/.c
 * `build\` tutaj kompilują się kompilowane pliki
 
 ## Sposób użycia
