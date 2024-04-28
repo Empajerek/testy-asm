@@ -1,11 +1,11 @@
 // plik mdiv_example.c z treści zadania z drobnymi modyfikacjami
-
 #include <assert.h>
 #include <inttypes.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <bits/sigaction.h>
 
 #define SIZE(x) (sizeof x / sizeof x[0])
 
@@ -27,17 +27,14 @@ static const test_data_t test_data[] = {
   {1, (int64_t[1]){-13},  5, (int64_t[1]){-2}, -3},
   {1, (int64_t[1]){ 13}, -5, (int64_t[1]){-2},  3},
   {1, (int64_t[1]){-13}, -5, (int64_t[1]){ 2}, -3},
-  {1, (int64_t[2]){0,0x8000000000000000}, -1, (int64_t[1]){0}, 0},
   {2, (int64_t[2]){0,  13},  5, (int64_t[2]){0x9999999999999999,  2},  3},
   {2, (int64_t[2]){0, -13},  5, (int64_t[2]){0x6666666666666667, -3}, -3},
   {2, (int64_t[2]){0,  13}, -5, (int64_t[2]){0x6666666666666667, -3},  3},
   {2, (int64_t[2]){0, -13}, -5, (int64_t[2]){0x9999999999999999,  2}, -3},
-  {2, (int64_t[2]){0,0x7fffffffffffffff}, -1, (int64_t[2]){0, 0x8000000000000001}, 0},
   {3, (int64_t[3]){1, 1, 1}, 2, (int64_t[3]){0x8000000000000000, 0x8000000000000000, 0},  1},
 };
 
 int main() {
-  bool pass = true;
   for (size_t test = 0; test < SIZE(test_data); ++test) {
     size_t n = test_data[test].n;
     int64_t *work_space = malloc(n * sizeof (int64_t));
@@ -46,6 +43,7 @@ int main() {
 
     int64_t r = mdiv(work_space, n, test_data[test].y);
 
+    bool pass = true;
     if (r != test_data[test].r) {
       pass = false;
       printf("W teście %zu reszta\n"
@@ -63,6 +61,8 @@ int main() {
       }
     }
     free(work_space);
+
+    if (!pass)
+      return 1;
   }
-  return !pass;
 }

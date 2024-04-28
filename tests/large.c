@@ -34,7 +34,7 @@ int main() {
     gmp_randstate_t state;
     mpz_init(large_number);
     gmp_randinit_default(state);
-    mpz_urandomb(large_number, state, 512);
+    mpz_urandomb(large_number, state, 1024);
     long long divisor = 1234;
 
     size_t length;

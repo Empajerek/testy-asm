@@ -2,12 +2,11 @@
 CC = gcc
 AS = nasm
 ASFLAGS = -f elf64 -w+all -w+error
-CFLAGS = -Wall -Wextra -std=c17 -O3
+CFLAGS = -Wall -Wextra -std=c17 -D_XOPEN_SOURCE -O3
 CPPFLAGS = -Wall -Wextra -std=c++17 -O3
 LDFLAGS = -z noexecstack -lgmp
 
-tests = simple small large
-
+tests = example edge_cases large
 .PHONY: $(tests) clean all test $(addprefix run-,$(tests))
 
 all: clean $(tests)
