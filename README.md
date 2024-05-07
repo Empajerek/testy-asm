@@ -4,8 +4,8 @@
 
 W tym katalogu znajdują się narzędzia do automatycznego testowania rozwiązań do zadania MDIV.
 
-* `tests\` zawiera testy w formacie test[0-9]+.cpp
-* `build\` tutaj kompilują się kompilowane pliki
+* `tests\` zawiera testy w formacie *.cpp/.c
+* `build\` tutaj kompilują się wszystkie pliki
 
 ## Sposób użycia
 
@@ -45,7 +45,7 @@ Można równierz, po dodaniu nowego pliku do folderu `tests\`, uruchamiać włas
 
 ## Uwaga
 
-1. Załączona biblioteka `gmp.h` sprawdza tylko poprawność wyniku operacji, nie sprawdza on czy nasz program wyrzuca poprawne błędy.
+1. Używana biblioteka `boost` sprawdza tylko poprawność wyniku operacji, nie sprawdza on czy nasz program wyrzuca poprawne błędy.
 2. Testy nie sprawdzają ani szybkości naszego kodu (TODO), dodatkowej pamięci, wszystkich możliwych edge case'ów, ani rozmiaru sekcji `.text` programu, zwróć na to uwagę przed wysłaniem zadania.
 3. Nie ma żadnej gwarancji, że program przechodzący wszystkie testy jest w 100% poprawny, ani że testerka jest wadliwa (jak coś znajdziecie dajcie znać). Zalecany jest zdrowy rozsądek.
 

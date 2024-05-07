@@ -26,13 +26,13 @@ typedef struct {
 } test_data_t;
 
 static const test_data_t test_data[] = {
-    {1, (int64_t[1]){0xdead0000c0de0000}, 0, 1}, // SIGFPE
+    {1, (int64_t[1]){0xdead1337c0deB1FF}, 0, 1}, // SIGFPE
     {1, (int64_t[1]){0x8000000000000001}, -1, 0},
     {1, (int64_t[1]){0x8000000000000000}, -1, 1}, // SIGFPE
 
     {2, (int64_t[2]){0,0x8000000000000000}, -1, 1}, // SIGFPE
     {2, (int64_t[2]){1,0x8000000000000000}, -1, 0},
-    {2, (int64_t[2]){0x00DEC1A551F1ED00,0x00DEC1A551F1ED00}, 0, 1}, // SIGFPE
+    {2, (int64_t[2]){0x00DEC1A551F1ED00, 0x00DEC1A551F1ED00}, 0, 1}, // SIGFPE
 };
 
 void sigfpe_handler() {
@@ -60,7 +60,6 @@ int main() {
         assert(work_space);
         memcpy(work_space, test_data[test].x, n * sizeof (int64_t));
 
-
         struct sigaction act;
         struct sigaction oldact;
         memset(&act, 0, sizeof(act));
@@ -70,10 +69,8 @@ int main() {
 
         if (setjmp(jmpbuf) == 0) {
             mdiv(work_space, n, test_data[test].y);
-            sigaction(SIGFPE, &oldact, &act);
-        } else {
-            sigaction(SIGFPE, &oldact, &act);
         }
+        sigaction(SIGFPE, &oldact, &act);
 
         if (sigfpe_occurred != test_data[test].returns_error) {
             if(sigfpe_occurred)
